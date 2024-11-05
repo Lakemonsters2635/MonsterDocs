@@ -10,7 +10,7 @@ In your Arduino program, first include the header file for that library:
 This allows us to instantiate an `Adafruit_Neopixel` object that we'll call strip:
 ```
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
-```
+```~~~~
 Here, `LED_COUNT` and `LED_PIN` are integer values that we define, but `NEO_GRB` and `NEO_KHZ800` are available from the `Adafruit_Neopixel` library that we `#include`d above.
 
 As mentioned above, our Arduino program needs both a `setup()` and a `loop()` function. The `setup()` code is run once and configures the color strip for the life of the program. The `loop()` code runs for as long as we'd like (forever, if you have nothing else to do!). For the color strip, we need to turn it on, set some configurations, and then display it. You can do that like this:
