@@ -4,17 +4,19 @@ We'll use an Adafruit library called `Adafruit_Neopixel` to control the color st
 
 ### Writing a basic Arduino program to control the LED color strip
 In your Arduino program, first include the header file for that library:
-```
+```cpp
 #include <Adafruit_Neopixel.h>
 ```
 This allows us to instantiate an `Adafruit_Neopixel` object that we'll call strip:
-```
+```cpp
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
-```~~~~
+```
+
+
 Here, `LED_COUNT` and `LED_PIN` are integer values that we define, but `NEO_GRB` and `NEO_KHZ800` are available from the `Adafruit_Neopixel` library that we `#include`d above.
 
 As mentioned above, our Arduino program needs both a `setup()` and a `loop()` function. The `setup()` code is run once and configures the color strip for the life of the program. The `loop()` code runs for as long as we'd like (forever, if you have nothing else to do!). For the color strip, we need to turn it on, set some configurations, and then display it. You can do that like this:
-```
+```cpp
 void setup() {
   strip.begin();                                // Start up the color strip
   strip.setBrightness(<INTEGER BRIGHTNESS>);    // Set a value for the brightness
@@ -23,7 +25,7 @@ void setup() {
 ```
 
 The body of the work is done repeatedly inside the `loop()` function. We'll write some functions that set the colors of individual LED lights which `loop()` will call over and over again. That means, our code should look something like this:
-```
+```cpp
 void loop() {
     setColors(<POSITION>, <COLOR>);
 }
@@ -32,12 +34,12 @@ If we ran our Arduino with the code above with some definition of `<POSITION>` a
 
 ### A better program to control the LED color strip
 Rather than set the color for one LED, let's set it for a whole group of LEDs. Recall from earlier that we have 55 LED lights, which are numbered 0,...,54 (remember, C++ uses 0-based indexing). A simple approach would be to choose both a starting and ending light and then set every light in between them with some color. Let's define the beginning and end of our range:
-```
+```cpp
 int begin{0};
 int end{19};
 ```
 Now, to set our range of lights with a for loop:
-```
+```cpp
 for (int i = begin; i <= end; i++){  
     strip.setPixelColor(i, <COLOR>);
 }
@@ -47,7 +49,7 @@ The `.setPixelColor()` member function from our `strip` object is provided by th
 
 ### Defining colors
 One common way to represent colors on displays is RGB format (for red-green-blue). RGB uses 3 values that describe the proportion of red, green, and blue that, when added together, make up a color. So, black could be represented as `(0,0,0)` and any other color would be take some value strictly greater than 0 for at least one of the red, green, and blue values. The `strip` object we instantiated earlier has a `.Color()` member function that will allow us to define our own colors. Here are some examples:
-```
+```cpp
 uint32_t black  = strip.Color(0, 0, 0);     // as before
 uint32_t red    = strip.Color(255, 0, 0);
 uint32_t green  = strip.Color(0, 255, 0);
