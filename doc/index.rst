@@ -36,6 +36,7 @@ MonsterDocs is the documentation library for the FIRST Robotics Competition (FRC
    :caption: Sensor Docs:
 
    sensors-color-sensor.md
+   sensors-arduino-main.md
    sensors-arduino-color-sensor.md
    sensors-arduino-led-board.md
    sensors-arduino-color-strip.md
