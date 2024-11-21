@@ -4,18 +4,28 @@ on: [push, pull_request, workflow_dispatch]
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   docs:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-      - name: Install dependencies
-        run: |
-          pip install sphinx sphinx_rtd_theme myst_parser sphinx-versioned-docs
+      - name: Checkout
+        uses: actions/checkout@v4
+        uses: actions/setup-python@v5
+        with:
+          fetch-depth: 0
       - name: Run sphinx-versioned to build docs
         run: |
+          pip install sphinx sphinx_rtd_theme myst_parser sphinx-versioned-docs
           sphinx-versioned --local-conf doc/conf.py --output doc/_build
       - name: Setup Pages
         uses: actions/configure-pages@v3
