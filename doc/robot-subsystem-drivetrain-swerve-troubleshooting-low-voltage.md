@@ -4,7 +4,7 @@
 
 * Error in VS code when the code is deployed:
 
-  <img src="./images/LowVoltageErrorMessage.jpg" width=150>
+  <img src="/MonsterDocs/assets/images/swerve-troubleshooting-cable-connection/LowVoltageErrorMessage.jpg" alt="Low voltage error message" width=150>
 
 * Can bus was giving error when ran with RevClient
 
@@ -32,4 +32,7 @@ Final Resolution
   * CanBus was giving error related to low voltage
     * Encoder cable was broken and the issue was fixed by changing the encoder cable.
 
-      <img src="./images/BrokenEncoderCable.jpg" alt="Broken Encoder Cable" width="150"/><img src="./images/CanSparkMax.jpg" alt="Auto Points" width="150"/>
+      <img src="/MonsterDocs/assets/images/swerve-troubleshooting-cable-connection/BrokenEncoderCable.jpg" alt="Broken Encoder Cable" width="150"/><img src="/MonsterDocs/assets/images/swerve-troubleshooting-cable-connection/CanSparkMax.jpg" alt="Image of cable connections" width="150"/>
+
+Contributors: 
+* Suleyman Sade
