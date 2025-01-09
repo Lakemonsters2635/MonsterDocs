@@ -1,0 +1,329 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentation for Setting Up Color Sensors with Adafruit TCS34725 and TCA9548A Multiplexer &mdash; MonsterDocs 2024.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=db884f6e"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="[TODO] LED Board" href="sensors-arduino-led-board.html" />
+    <link rel="prev" title="Overview" href="sensors-arduino-main.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MonsterDocs
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Drivetrain Docs:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="robot-subsystem-drivetrain-coordinate-systems.html">[TODO] Drivetrain Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="robot-subsystem-drivetrain-swerve-drive.html">[TODO] Swerve Drive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="robot-subsystem-arm-pid.html">[TODO] Arm PID</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Intake / Outtake:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="robot-subsystem-intake-outtake.html">[TODO] Intake Outtake</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Vision Docs:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="monster-vision-overview.html">[TODO] Monster Vision Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monster-vision-startup.html">Vision Startup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="robot-subsystem-vision.html">[TODO] Robot Vision Subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wpilib-grip.html">WPILIB Grip</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Sensor Docs:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="sensors-color-sensor.html">[TODO] Color Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensors-arduino-main.html">Overview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Documentation for Setting Up Color Sensors with Adafruit TCS34725 and TCA9548A Multiplexer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hardware-setup">Hardware Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#software-setup">Software Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#code-explanation">Code Explanation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#library-and-constants-setup">1. <strong>Library and Constants Setup</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rgb-variable-declaration">2. <strong>RGB Variable Declaration</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiplexer-channel-selection">3. <strong>Multiplexer Channel Selection</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sensor-initialization">4. <strong>Sensor Initialization</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reading-and-displaying-sensor-data">5. <strong>Reading and Displaying Sensor Data</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#testing-the-setup">Testing the Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sensors-arduino-led-board.html">[TODO] LED Board</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensors-arduino-color-strip.html">LED Color Strip</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Troubleshooting:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="robot-subsystem-drivetrain-swerve-troubleshooting-low-voltage.html">Low voltage in RevClient</a></li>
+<li class="toctree-l1"><a class="reference internal" href="robot-subsystem-drivetrain-swerve-troubleshooting-cable-connection.html">Cable Connection Issue</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Docs:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="other-docs-pid.html">[TODO] PID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="other-docs-some-feature.html">[DEMO Docs] Some feature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="other-docs-another-feature.html">[DEMO Docs] More features here</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MonsterDocs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Documentation for Setting Up Color Sensors with Adafruit TCS34725 and TCA9548A Multiplexer</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/sensors-arduino-color-sensor.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="documentation-for-setting-up-color-sensors-with-adafruit-tcs34725-and-tca9548a-multiplexer">
+<h1>Documentation for Setting Up Color Sensors with Adafruit TCS34725 and TCA9548A Multiplexer<a class="headerlink" href="#documentation-for-setting-up-color-sensors-with-adafruit-tcs34725-and-tca9548a-multiplexer" title="Link to this heading"></a></h1>
+<p>This guide explains how to set up multiple Adafruit TCS34725 color sensors using a TCA9548A I2C multiplexer. The provided code initializes the sensors, reads their RGB values, and prints the data to the Serial Monitor.</p>
+<hr class="docutils" />
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Hardware Requirements</strong>:</p>
+<ul class="simple">
+<li><p>Arduino board (e.g., Uno, Mega, etc.).</p></li>
+<li><p>Two or more Adafruit TCS34725 RGB color sensors.</p></li>
+<li><p>A TCA9548A I2C multiplexer.</p></li>
+<li><p>Connecting wires (jumper wires).</p></li>
+</ul>
+</li>
+<li><p><strong>Software Requirements</strong>:</p>
+<ul class="simple">
+<li><p>Arduino IDE installed on your computer.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Adafruit_TCS34725</span></code> library installed in the Arduino IDE.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="hardware-setup">
+<h2>Hardware Setup<a class="headerlink" href="#hardware-setup" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Connect the TCA9548A Multiplexer</strong>:</p>
+<ul class="simple">
+<li><p>Connect <code class="docutils literal notranslate"><span class="pre">VIN</span></code> and <code class="docutils literal notranslate"><span class="pre">GND</span></code> of the multiplexer to the Arduino’s <code class="docutils literal notranslate"><span class="pre">5V</span></code> and <code class="docutils literal notranslate"><span class="pre">GND</span></code> pins.</p></li>
+<li><p>Connect the <code class="docutils literal notranslate"><span class="pre">SCL</span></code> and <code class="docutils literal notranslate"><span class="pre">SDA</span></code> pins of the multiplexer to the corresponding pins on the Arduino.</p></li>
+</ul>
+</li>
+<li><p><strong>Connect the TCS34725 Sensors</strong>:</p>
+<ul class="simple">
+<li><p>Connect each sensor’s <code class="docutils literal notranslate"><span class="pre">VIN</span></code> and <code class="docutils literal notranslate"><span class="pre">GND</span></code> to the multiplexer’s <code class="docutils literal notranslate"><span class="pre">VIN</span></code> and <code class="docutils literal notranslate"><span class="pre">GND</span></code>.</p></li>
+<li><p>Connect the <code class="docutils literal notranslate"><span class="pre">SCL</span></code> and <code class="docutils literal notranslate"><span class="pre">SDA</span></code> pins of each sensor to the corresponding channels of the TCA9548A (e.g., channel 2 for <code class="docutils literal notranslate"><span class="pre">LEFTSENSOR</span></code> and channel 3 for <code class="docutils literal notranslate"><span class="pre">RIGHTSENSOR</span></code>).</p></li>
+</ul>
+</li>
+<li><p><strong>Configure Multiplexer Address</strong>:</p>
+<ul class="simple">
+<li><p>The TCA9548A default I2C address is <code class="docutils literal notranslate"><span class="pre">0x70</span></code>. If you have changed the address, update the <code class="docutils literal notranslate"><span class="pre">TCAADDR</span></code> constant in the code accordingly.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="software-setup">
+<h2>Software Setup<a class="headerlink" href="#software-setup" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Install Required Libraries</strong>:</p>
+<ul class="simple">
+<li><p>Open the Arduino IDE.</p></li>
+<li><p>Navigate to <strong>Sketch</strong> → <strong>Include Library</strong> → <strong>Manage Libraries</strong>.</p></li>
+<li><p>Search for <code class="docutils literal notranslate"><span class="pre">Adafruit</span> <span class="pre">TCS34725</span></code> and click <strong>Install</strong>.</p></li>
+</ul>
+</li>
+<li><p><strong>Upload the Code</strong>:</p>
+<ul class="simple">
+<li><p>Open the provided code in the Arduino IDE.</p></li>
+<li><p>Connect your Arduino to the computer.</p></li>
+<li><p>Select the appropriate <strong>Board</strong> and <strong>Port</strong> under the <strong>Tools</strong> menu.</p></li>
+<li><p>Click <strong>Upload</strong>.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="code-explanation">
+<h2>Code Explanation<a class="headerlink" href="#code-explanation" title="Link to this heading"></a></h2>
+<section id="library-and-constants-setup">
+<h3>1. <strong>Library and Constants Setup</strong><a class="headerlink" href="#library-and-constants-setup" title="Link to this heading"></a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Adafruit_TCS34725.h&gt;</span>
+
+<span class="cp">#define TCAADDR 0x70</span>
+<span class="cp">#define LEFTSENSOR 2</span>
+<span class="cp">#define RIGHTSENSOR 3</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">Adafruit_TCS34725</span></code> library is included for sensor control.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TCAADDR</span></code> defines the I2C address of the multiplexer.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LEFTSENSOR</span></code> and <code class="docutils literal notranslate"><span class="pre">RIGHTSENSOR</span></code> correspond to the multiplexer channels connected to the sensors.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="rgb-variable-declaration">
+<h3>2. <strong>RGB Variable Declaration</strong><a class="headerlink" href="#rgb-variable-declaration" title="Link to this heading"></a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>These variables store the red, green, blue, and clear channel values.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="multiplexer-channel-selection">
+<h3>3. <strong>Multiplexer Channel Selection</strong><a class="headerlink" href="#multiplexer-channel-selection" title="Link to this heading"></a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tcaSelect</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">7</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">Wire</span><span class="p">.</span><span class="n">beginTransmission</span><span class="p">(</span><span class="n">TCAADDR</span><span class="p">);</span>
+<span class="w">  </span><span class="n">Wire</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">i</span><span class="p">);</span>
+<span class="w">  </span><span class="n">Wire</span><span class="p">.</span><span class="n">endTransmission</span><span class="p">();</span><span class="w">  </span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">tcaSelect</span></code> function activates a specific multiplexer channel by writing a bit corresponding to the desired channel.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="sensor-initialization">
+<h3>4. <strong>Sensor Initialization</strong><a class="headerlink" href="#sensor-initialization" title="Link to this heading"></a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Adafruit_TCS34725</span><span class="w"> </span><span class="n">lightSensor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Adafruit_TCS34725</span><span class="p">(</span><span class="n">TCS34725_INTEGRATIONTIME_2_4MS</span><span class="p">,</span><span class="w"> </span><span class="n">TCS34725_GAIN_1X</span><span class="p">);</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">);</span>
+<span class="w">  </span><span class="n">lightSensor</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+<span class="w">  </span><span class="n">tcaSelect</span><span class="p">(</span><span class="n">LEFTSENSOR</span><span class="p">);</span>
+<span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>The sensor is initialized with a 2.4ms integration time and a gain of <code class="docutils literal notranslate"><span class="pre">1X</span></code> for accuracy.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="reading-and-displaying-sensor-data">
+<h3>5. <strong>Reading and Displaying Sensor Data</strong><a class="headerlink" href="#reading-and-displaying-sensor-data" title="Link to this heading"></a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">tcaSelect</span><span class="p">(</span><span class="n">LEFTSENSOR</span><span class="p">);</span>
+<span class="w">  </span><span class="n">lightSensor</span><span class="p">.</span><span class="n">getRawData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">r</span><span class="p">,</span><span class="w">  </span><span class="o">&amp;</span><span class="n">g</span><span class="p">,</span><span class="w">  </span><span class="o">&amp;</span><span class="n">b</span><span class="p">,</span><span class="w">  </span><span class="o">&amp;</span><span class="n">c</span><span class="p">);</span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;RED: &quot;</span><span class="p">);</span><span class="w"> </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">DEC</span><span class="p">);</span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;GREEN: &quot;</span><span class="p">);</span><span class="w"> </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="w"> </span><span class="n">DEC</span><span class="p">);</span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;BLUE: &quot;</span><span class="p">);</span><span class="w"> </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">DEC</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">loop</span></code> function alternates between reading data from the left and right sensors.</p></li>
+<li><p>RGB values are read and printed to the Serial Monitor with a 500ms delay.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="testing-the-setup">
+<h2>Testing the Setup<a class="headerlink" href="#testing-the-setup" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Open the Arduino IDE’s <strong>Serial Monitor</strong> (set baud rate to <code class="docutils literal notranslate"><span class="pre">115200</span></code>).</p></li>
+<li><p>Observe the RGB data for both the left and right sensors.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>No Data on Serial Monitor</strong>:</p>
+<ul class="simple">
+<li><p>Ensure the sensors are connected correctly to the multiplexer.</p></li>
+<li><p>Check the I2C address of the multiplexer.</p></li>
+<li><p>Verify the connections for <code class="docutils literal notranslate"><span class="pre">SCL</span></code> and <code class="docutils literal notranslate"><span class="pre">SDA</span></code>.</p></li>
+</ul>
+</li>
+<li><p><strong>Incorrect RGB Values</strong>:</p>
+<ul class="simple">
+<li><p>Ensure the sensors are not blocked.</p></li>
+<li><p>Check the integration time and gain settings.</p></li>
+</ul>
+</li>
+</ol>
+<hr class="docutils" />
+<p>By following this guide, you should be able to successfully set up and use multiple Adafruit TCS34725 sensors with a TCA9548A multiplexer.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="sensors-arduino-main.html" class="btn btn-neutral float-left" title="Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sensors-arduino-led-board.html" class="btn btn-neutral float-right" title="[TODO] LED Board" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright FRC Team LakeMonsters 2635.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

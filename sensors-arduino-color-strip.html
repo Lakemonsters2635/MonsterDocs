@@ -1,0 +1,212 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LED Color Strip &mdash; MonsterDocs 2024.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=db884f6e"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Low voltage in RevClient" href="robot-subsystem-drivetrain-swerve-troubleshooting-low-voltage.html" />
+    <link rel="prev" title="[TODO] LED Board" href="sensors-arduino-led-board.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MonsterDocs
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Drivetrain Docs:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="robot-subsystem-drivetrain-coordinate-systems.html">[TODO] Drivetrain Coordinate Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="robot-subsystem-drivetrain-swerve-drive.html">[TODO] Swerve Drive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="robot-subsystem-arm-pid.html">[TODO] Arm PID</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Intake / Outtake:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="robot-subsystem-intake-outtake.html">[TODO] Intake Outtake</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Vision Docs:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="monster-vision-overview.html">[TODO] Monster Vision Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monster-vision-startup.html">Vision Startup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="robot-subsystem-vision.html">[TODO] Robot Vision Subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wpilib-grip.html">WPILIB Grip</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Sensor Docs:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="sensors-color-sensor.html">[TODO] Color Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensors-arduino-main.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensors-arduino-color-sensor.html">Documentation for Setting Up Color Sensors with Adafruit TCS34725 and TCA9548A Multiplexer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensors-arduino-led-board.html">[TODO] LED Board</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">LED Color Strip</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#writing-a-basic-arduino-program-to-control-the-led-color-strip">Writing a basic Arduino program to control the LED color strip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a-better-program-to-control-the-led-color-strip">A better program to control the LED color strip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#defining-colors">Defining colors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Troubleshooting:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="robot-subsystem-drivetrain-swerve-troubleshooting-low-voltage.html">Low voltage in RevClient</a></li>
+<li class="toctree-l1"><a class="reference internal" href="robot-subsystem-drivetrain-swerve-troubleshooting-cable-connection.html">Cable Connection Issue</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Docs:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="other-docs-pid.html">[TODO] PID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="other-docs-some-feature.html">[DEMO Docs] Some feature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="other-docs-another-feature.html">[DEMO Docs] More features here</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MonsterDocs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">LED Color Strip</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/sensors-arduino-color-strip.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="led-color-strip">
+<h1>LED Color Strip<a class="headerlink" href="#led-color-strip" title="Link to this heading"></a></h1>
+<p>We’ll use an Adafruit library called <code class="docutils literal notranslate"><span class="pre">Adafruit_Neopixel</span></code> to control the color strip. As of November 2024, our color strip has 55 LED lights and 13 LED pins. WE’ll explain how to write a program that 1) defines the state of the LED strip (so that our code matches the hardware) and 2) controls the LED lights on the color strip.</p>
+<section id="writing-a-basic-arduino-program-to-control-the-led-color-strip">
+<h2>Writing a basic Arduino program to control the LED color strip<a class="headerlink" href="#writing-a-basic-arduino-program-to-control-the-led-color-strip" title="Link to this heading"></a></h2>
+<p>In your Arduino program, first include the header file for that library:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Adafruit_Neopixel.h&gt;</span>
+</pre></div>
+</div>
+<p>This allows us to instantiate an <code class="docutils literal notranslate"><span class="pre">Adafruit_Neopixel</span></code> object that we’ll call strip:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Adafruit_NeoPixel</span><span class="w"> </span><span class="nf">strip</span><span class="p">(</span><span class="n">LED_COUNT</span><span class="p">,</span><span class="w"> </span><span class="n">LED_PIN</span><span class="p">,</span><span class="w"> </span><span class="n">NEO_GRB</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">NEO_KHZ800</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Here, <code class="docutils literal notranslate"><span class="pre">LED_COUNT</span></code> and <code class="docutils literal notranslate"><span class="pre">LED_PIN</span></code> are integer values that we define, but <code class="docutils literal notranslate"><span class="pre">NEO_GRB</span></code> and <code class="docutils literal notranslate"><span class="pre">NEO_KHZ800</span></code> are available from the <code class="docutils literal notranslate"><span class="pre">Adafruit_Neopixel</span></code> library that we <code class="docutils literal notranslate"><span class="pre">#include</span></code>d above.</p>
+<p>As mentioned above, our Arduino program needs both a <code class="docutils literal notranslate"><span class="pre">setup()</span></code> and a <code class="docutils literal notranslate"><span class="pre">loop()</span></code> function. The <code class="docutils literal notranslate"><span class="pre">setup()</span></code> code is run once and configures the color strip for the life of the program. The <code class="docutils literal notranslate"><span class="pre">loop()</span></code> code runs for as long as we’d like (forever, if you have nothing else to do!). For the color strip, we need to turn it on, set some configurations, and then display it. You can do that like this:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">strip</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span><span class="w">                                </span><span class="c1">// Start up the color strip</span>
+<span class="w">  </span><span class="n">strip</span><span class="p">.</span><span class="n">setBrightness</span><span class="p">(</span><span class="o">&lt;</span><span class="n">INTEGER</span><span class="w"> </span><span class="n">BRIGHTNESS</span><span class="o">&gt;</span><span class="p">);</span><span class="w">    </span><span class="c1">// Set a value for the brightness</span>
+<span class="w">  </span><span class="n">strip</span><span class="p">.</span><span class="n">show</span><span class="p">();</span><span class="w">                                 </span><span class="c1">// Display what is in the `loop()`...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The body of the work is done repeatedly inside the <code class="docutils literal notranslate"><span class="pre">loop()</span></code> function. We’ll write some functions that set the colors of individual LED lights which <code class="docutils literal notranslate"><span class="pre">loop()</span></code> will call over and over again. That means, our code should look something like this:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">setColors</span><span class="p">(</span><span class="o">&lt;</span><span class="n">POSITION</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="o">&lt;</span><span class="n">COLOR</span><span class="o">&gt;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If we ran our Arduino with the code above with some definition of <code class="docutils literal notranslate"><span class="pre">&lt;POSITION&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;COLOR&gt;</span></code>, then the LED strip would light up for one color at one position and never change. Fortunately, we can do better.</p>
+</section>
+<section id="a-better-program-to-control-the-led-color-strip">
+<h2>A better program to control the LED color strip<a class="headerlink" href="#a-better-program-to-control-the-led-color-strip" title="Link to this heading"></a></h2>
+<p>Rather than set the color for one LED, let’s set it for a whole group of LEDs. Recall from earlier that we have 55 LED lights, which are numbered 0,…,54 (remember, C++ uses 0-based indexing). A simple approach would be to choose both a starting and ending light and then set every light in between them with some color. Let’s define the beginning and end of our range:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">begin</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">end</span><span class="p">{</span><span class="mi">19</span><span class="p">};</span>
+</pre></div>
+</div>
+<p>Now, to set our range of lights with a for loop:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">begin</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">end</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">){</span><span class="w">  </span>
+<span class="w">    </span><span class="n">strip</span><span class="p">.</span><span class="n">setPixelColor</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="o">&lt;</span><span class="n">COLOR</span><span class="o">&gt;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="n">strip</span><span class="p">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">.setPixelColor()</span></code> member function from our <code class="docutils literal notranslate"><span class="pre">strip</span></code> object is provided by the library we <code class="docutils literal notranslate"><span class="pre">#include</span></code>d earlier. Same with <code class="docutils literal notranslate"><span class="pre">.show()</span></code>. But we haven’t defined <code class="docutils literal notranslate"><span class="pre">&lt;COLOR&gt;</span></code> yet!</p>
+</section>
+<section id="defining-colors">
+<h2>Defining colors<a class="headerlink" href="#defining-colors" title="Link to this heading"></a></h2>
+<p>One common way to represent colors on displays is RGB format (for red-green-blue). RGB uses 3 values that describe the proportion of red, green, and blue that, when added together, make up a color. So, black could be represented as <code class="docutils literal notranslate"><span class="pre">(0,0,0)</span></code> and any other color would be take some value strictly greater than 0 for at least one of the red, green, and blue values. The <code class="docutils literal notranslate"><span class="pre">strip</span></code> object we instantiated earlier has a <code class="docutils literal notranslate"><span class="pre">.Color()</span></code> member function that will allow us to define our own colors. Here are some examples:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">black</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">strip</span><span class="p">.</span><span class="n">Color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w">     </span><span class="c1">// as before</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="n">red</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="n">strip</span><span class="p">.</span><span class="n">Color</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="n">green</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">strip</span><span class="p">.</span><span class="n">Color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="n">blue</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">strip</span><span class="p">.</span><span class="n">Color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>When we use a color like <code class="docutils literal notranslate"><span class="pre">blue</span></code> in place of <code class="docutils literal notranslate"><span class="pre">&lt;COLOR&gt;</span></code> above, our for loop will set the LED lights from <code class="docutils literal notranslate"><span class="pre">begin</span></code> to <code class="docutils literal notranslate"><span class="pre">end</span></code> (inclusive) to <code class="docutils literal notranslate"><span class="pre">blue</span></code>.</p>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading"></a></h2>
+<p>Now you should have all of the pieces to get started. Here are some ideas of things you could do to make your code better:</p>
+<ul class="simple">
+<li><p>Define different variables for different ranges of <code class="docutils literal notranslate"><span class="pre">begin</span></code> and <code class="docutils literal notranslate"><span class="pre">end</span></code> that will allow more fine-grained control of which LED lights you control.</p></li>
+<li><p>Add more colors!</p></li>
+<li><p>Wrap the code that <em>sets</em> the lights (i.e., the for loop above) into a function so that you can control any range of lights with different colors.</p></li>
+<li><p>Add a <code class="docutils literal notranslate"><span class="pre">delay(&lt;SECONDS&gt;);</span></code> after you set the LED lights for some number of <code class="docutils literal notranslate"><span class="pre">&lt;SECONDS&gt;</span></code> so that the colors remain on the strip for a certain period of time (otherwise they’ll just blink and you might miss it!). A good value is 500, but you should play around with whatever you like.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="sensors-arduino-led-board.html" class="btn btn-neutral float-left" title="[TODO] LED Board" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="robot-subsystem-drivetrain-swerve-troubleshooting-low-voltage.html" class="btn btn-neutral float-right" title="Low voltage in RevClient" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright FRC Team LakeMonsters 2635.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
